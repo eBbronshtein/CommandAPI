@@ -6,7 +6,7 @@ using CommandAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
 
-namespace CommandAPI.AddControllers
+namespace CommandAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -22,14 +22,14 @@ namespace CommandAPI.AddControllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Command>> GetAllCommands()
+        public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands()
         {
             var commandItems = _repository.GetAllCommands();
             return Ok(_mapper.Map<IEnumerable<CommandReadDto>>(commandItems));
         }
 
         [HttpGet("{id}", Name = "GetCommandById")]
-        public ActionResult<Command> GetCommandById(int id)
+        public ActionResult<CommandReadDto> GetCommandById(int id)
         {
             var commandItem = _repository.GetCommandById(id);
             if (commandItem == null)
